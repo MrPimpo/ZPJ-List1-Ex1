@@ -3,41 +3,41 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class ZbysiuPanel extends JPanel implements MouseListener {
-    private ZbysiuForm padre;
+public class OPanel extends JPanel implements MouseListener {
+    private final OForm padre;
     private byte simulation;
     // ----- SIM 0 ----- //
-    private ZbysiuLabel lblQuestion;
-    private ZbysiuButton btnClassic, btnCustom;
+    private final OLabel lblQuestion;
+    private final OButton btnClassic, btnCustom;
     // ----- SIM 1 ----- //
-    private ZbysiuTab tab;
-    private ZbysiuButton btnReturno;
+    private final OTab tab;
+    private OButton btnReturno;
     // ----- SIM 2 ----- //
-    private ZbysiuLabel lblWidth, lblHeight;
-    private ZbysiuButton btnWidthIncrease, btnWidthDecrease, btnHeightIncrease, btnHeightDecrease;
-    private ZbysiuButton btnOK;
+    private final OLabel lblWidth, lblHeight;
+    private final OButton btnWidthIncrease, btnWidthDecrease, btnHeightIncrease, btnHeightDecrease;
+    private final OButton btnOK;
     private int width, height;
 
-    public ZbysiuPanel(ZbysiuForm papa){
+    public OPanel(OForm papa){
         padre = papa;
         simulation = 0;
 
         // ----- SIM 0 ----- //
         padre.setSize(350,150);
-        padre.setTitle("Wybierz macierz");
-        lblQuestion = new ZbysiuLabel(25, 20,"Wybierz macierz:");
-        btnClassic = new ZbysiuButton(25,40,125,50,"Klasyczna 10x10");
-        btnCustom = new ZbysiuButton(175,40,125,50,"Inne wymiary");
+        padre.setTitle("Choose matrix");
+        lblQuestion = new OLabel(25, 20,"Choose matrix:");
+        btnClassic = new OButton(25,40,125,50,"Classic 10x10");
+        btnCustom = new OButton(175,40,125,50,"Other dimensions");
         // ----- SIM 1 ----- //
-        tab = new ZbysiuTab(140,25);
+        tab = new OTab(60,25);
         // ----- SIM 2 ----- //
-        btnWidthDecrease = new ZbysiuButton(10,10,20,20,"<");
-        lblWidth = new ZbysiuLabel(40,10,"kolumny: 10");
-        btnWidthIncrease = new ZbysiuButton(150,10,20,20,">");
-        btnHeightDecrease = new ZbysiuButton(10,30,20,20,"<");
-        lblHeight = new ZbysiuLabel(40,30,"wiersze: 10");
-        btnHeightIncrease = new ZbysiuButton(150,30,20,20,">");
-        btnOK = new ZbysiuButton(10,60,160,30,"OK");
+        btnWidthDecrease = new OButton(10,10,20,20,"<");
+        lblWidth = new OLabel(40,10,"columns: 10");
+        btnWidthIncrease = new OButton(150,10,20,20,">");
+        btnHeightDecrease = new OButton(10,30,20,20,"<");
+        lblHeight = new OLabel(40,30,"rows: 10");
+        btnHeightIncrease = new OButton(150,30,20,20,">");
+        btnOK = new OButton(10,60,160,30,"OK");
 
         setFocusable(true);
         addMouseListener(this);
@@ -79,7 +79,7 @@ public class ZbysiuPanel extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Point p = new Point(e.getX(),e.getY());
-        System.out.print("KlikuKllik. ");
+        System.out.print("Click:  ");
         switch(simulation){
             case 0:
                 if (btnClassic.intercepts(p)){
@@ -87,61 +87,65 @@ public class ZbysiuPanel extends JPanel implements MouseListener {
                     tab.setBasicMatrix(new BasicMatrix());
                     int W = 10*tab.getCellWidth()+35, H = 10*tab.getCellHeight()+85;
                     padre.setSize(W,H);
-                    padre.setTitle("Klasyczna macierz 10x10");
-                    btnReturno = new ZbysiuButton(W/2-30,H-75,60,30,"OK");
+                    padre.setTitle("Classic 10x10 matrix");
+                    btnReturno = new OButton(W/2-30,H-75,60,30,"OK");
                     this.repaint();
-                    System.out.print("Klik w klasyczny ");
+                    System.out.print("\"Classic\" button pressed ");
                 }
                 if (btnCustom.intercepts(p)){
                     simulation = 2;
                     width = 10;
                     height = 10;
-                    lblWidth.update("kolumny: 10");
-                    lblHeight.update("wiersze: 10");
+                    lblWidth.update("columns: 10");
+                    lblHeight.update("rows: 10");
                     padre.setSize(200,150);
                     this.repaint();
-                    System.out.print("Klik w inny ");
+                    System.out.print("\"Other\" button clicked ");
                 }
                 break;
             case 1:
                 if (btnReturno.intercepts(p)){
                     simulation = 0;
                     padre.setSize(350,150);
-                    padre.setTitle("Wybierz macierz");
+                    padre.setTitle("Choose matrix");
                     this.repaint();
-                    System.out.print("Klik w powrotny ");
+                    System.out.print("\"Back\" button pressed ");
                 }
                 break;
             case 2:
                 if (btnWidthIncrease.intercepts(p)){
                     width++;
-                    lblWidth.update("kolumny: "+width);
+                    lblWidth.update("columns: "+width);
                     this.repaint();
+                    System.out.print("Column added: "+width);
                 }
                 if (btnWidthDecrease.intercepts(p)){
                     width--;
-                    lblWidth.update("kolumny: "+width);
+                    lblWidth.update("columns: "+width);
                     this.repaint();
+                    System.out.print("Column removed: "+width);
                 }
                 if (btnHeightIncrease.intercepts(p)){
                     height++;
-                    lblHeight.update("wiersze: "+height);
+                    lblHeight.update("row: "+height);
                     this.repaint();
+                    System.out.print("Row added: "+height);
                 }
                 if (btnHeightDecrease.intercepts(p)){
                     height--;
-                    lblHeight.update("wiersze: "+height);
+                    lblHeight.update("row: "+height);
                     this.repaint();
+                    System.out.print("Row removed: "+height);
                 }
                 if (btnOK.intercepts(p)){
                     simulation = 1;
                     tab.setBasicMatrix(new BasicMatrix(height,width));
                     int W = width*tab.getCellWidth()+35, H = height*tab.getCellHeight()+85;
                     padre.setSize(W,H);
-                    padre.setTitle("Macierz "+width+"x"+height);
-                    btnReturno = new ZbysiuButton(W/2-30,H-75,60,30,"OK");
+                    padre.setTitle("Matrix "+width+"x"+height);
+                    btnReturno = new OButton(W/2-30,H-75,60,30,"OK");
                     this.repaint();
-                    System.out.print("Klik w OK ");
+                    System.out.print("OK button clicked.");
                 }
                 break;
         }

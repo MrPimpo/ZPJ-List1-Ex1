@@ -1,10 +1,10 @@
 import java.awt.*;
 
-public class ZbysiuTab extends ZbysiuComponent {
-    private int cW, cH;
+public class OTab extends OComponent {
+    private final int cW, cH;
     private BasicMatrix basicMatrix;
 
-    public ZbysiuTab(int cellWidth, int cellHeight){
+    public OTab(int cellWidth, int cellHeight){
         iX=5; iY=5;
         cW = cellWidth;
         cH = cellHeight;

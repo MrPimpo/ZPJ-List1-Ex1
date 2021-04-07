@@ -1,10 +1,10 @@
 import java.awt.*;
 
-public class ZbysiuButton extends ZbysiuComponent {
-    private int iW, iH;
-    private String text;
+public class OButton extends OComponent {
+    private final int iW, iH;
+    private final String text;
 
-    public ZbysiuButton(int x, int y, int width, int height, String text){
+    public OButton(int x, int y, int width, int height, String text){
         iX = x;
         iY = y;
         iW = width;

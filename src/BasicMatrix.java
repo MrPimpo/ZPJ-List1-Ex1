@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.Random;
 
 public class BasicMatrix {
-    private double matrix[][];
+    private final double[][] matrix;
 
     public BasicMatrix(){
         matrix = generate(10,10,10);
@@ -22,6 +22,7 @@ public class BasicMatrix {
         return (_matrix);
     }
 
+    // matrix printing in command line
     public void printBasicMatrix(){
         int max=0;
         for (double[] doubles : matrix) {
@@ -44,7 +45,8 @@ public class BasicMatrix {
         }
     }
 
-    public void printBasicMatrix (Graphics g, ZbysiuTab t){
+    // matrix printing within an OTab
+    public void printBasicMatrix (Graphics g, OTab t){
         printBasicMatrix();
         g.setColor(Color.LIGHT_GRAY);
         g.drawRect(t.iX,t.iY,t.iX-5+matrix[0].length*t.getCellWidth(),t.iY-5+matrix.length*t.getCellHeight());
@@ -52,12 +54,12 @@ public class BasicMatrix {
             g.drawLine(t.iX+x*t.getCellWidth(),t.iY,t.iX+x*t.getCellWidth(),t.iY+matrix.length*t.getCellHeight());
 
         for (int y=0; y<matrix.length; y++) {
-            String s = "";
+            String s;
             g.drawLine(t.iX,t.iY+y*t.getCellHeight(),t.iX+matrix[0].length*t.getCellWidth(),t.iY+y*t.getCellHeight());
             for (int x = 0; x < matrix[y].length; x++){
-                //java.text.DecimalFormat df=new java.text.DecimalFormat("0.00");
-                //s=df.format(matrix[y][x])+"";
-                s=matrix[y][x]+"";
+                java.text.DecimalFormat df=new java.text.DecimalFormat("0.00");
+                s=df.format(matrix[y][x])+"";
+                //s=matrix[y][x]+"";
                 if (!s.startsWith("-"))
                     s = " "+s;
                 g.drawString(s,t.iX+5+x*t.getCellWidth(),(int)(t.iY+(y+(double)2/3)*t.getCellHeight()));

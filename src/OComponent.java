@@ -1,13 +1,7 @@
 import java.awt.*;
 
-public class ZbysiuComponent {
-    protected String id;
+public class OComponent {
     protected int iX, iY;
-
-    public void ZbysiuComponent(int x, int y){
-        iX = x;
-        iY = y;
-    }
 
     public void draw(Graphics g){
         g.drawLine(iX-5,iY,iX+5,iY);

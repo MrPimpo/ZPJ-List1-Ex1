@@ -1,15 +1,12 @@
 import javax.swing.*;
-import java.awt.*;
 
-public class ZbysiuForm extends JFrame {
-    private ZbysiuPanel panel;
-
-    public ZbysiuForm(){
+public class OForm extends JFrame {
+    public OForm(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(false);
 
-        panel = new ZbysiuPanel(this);
+        OPanel panel = new OPanel(this);
         add(panel);
     }
 
